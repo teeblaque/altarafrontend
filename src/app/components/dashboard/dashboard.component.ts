@@ -9,12 +9,12 @@ import { ArticleService } from '../../services/articles/article.service';
 })
 export class DashboardComponent implements OnInit {
 
-	info = { "title": "", "content": ""}
+	info = { "id": "", "title": "testing blog", "content": "this is my first blog post for altara project and its to explain how am going to fix all their project in no time us to be son"}
 
 	data = { "title": "", "content": "", "image": "", "slug": "", "user_id": "", "token": "", "role": ""}
 
 	show_retrieve_msg: boolean;
-	singlelist: any;
+	singlelists: any;
 
 	showmsg: boolean;
 	showmsgs: boolean;
@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
 	alert_btn: any;
 	alert_btns: any;
 	saved_art : any;
+	saved_arts : any;
 
 	// fileToUpload: File = null;
 
@@ -116,13 +117,12 @@ export class DashboardComponent implements OnInit {
 	// }
 
 	updateForm(id){
-		// this.singlelist=id;
-		// console.log(this.singlelist.title);
+		this.info.id = id;
 		this.article.getSingleById(id).subscribe(articles => {
 			console.log(id);
 			if (articles.message == 'success') { 
-				this.info = articles.data;
-				console.log(this.info);
+				this.singlelists = articles;
+				console.log(this.singlelists);
 				
 			} else {
 				console.log('data not found');
@@ -134,8 +134,28 @@ export class DashboardComponent implements OnInit {
 		});
 	}
 
-	onUpdate(id){
+	onUpdate(){
+		// console.log(this.info.id);
+		this.showmsgs = true;
+		this.alert_btns = 'alert alert-info text-center';
+		this.messages = 'Connecting to server...';
 
+		this.article.update(this.info, this.info.id).then((result) => {
+			this.saved_arts = result;
+			console.log(this.saved_arts);
+			window.location.reload();
+
+			this.showmsgs = true;
+			this.alert_btns = 'alert alert-info text-center';
+			this.messages = 'Article Updated Successfully';
+
+		}).catch((error) => {
+			console.log(error);
+			this.showmsgs = true;
+			this.alert_btns = 'alert alert-danger text-center';
+			this.messages = 'An error occured';
+
+		});
 	}
 
 	delete(id){

@@ -72,6 +72,24 @@ export class ArticleService {
     });
   }
 
+  update(credentials, id){
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      const listPubValue = JSON.parse(localStorage.getItem('token'));
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      headers.append('Content-Type', 'application/json');
+      headers.append('Authorization', listPubValue);
+      let options = new RequestOptions({ headers: headers });
+
+      this.http.put(this.url+'/article/update/'+id, credentials, options)
+      .subscribe(res => {
+        resolve(res.json());
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+
   delete(id){
     return new Promise((resolve, reject) => {
       let headers = new Headers();
