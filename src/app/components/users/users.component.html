@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+<div class="mt-4 col-12">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header">Add New User</div>
+				<div class="card-body">
+					<form #formData=ngForm (ngSubmit)="onSave()">
+						<div *ngIf="showmsg" class="{{ alert_btn }}"> {{ message }}</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email</label>
+							<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email" required="" [(ngModel)]="data.email">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Password</label>
+							<input type="password" name="password" class="form-control" id="exampleInputPassword1" aria-describedby="emailHelp" placeholder="password" required="" [(ngModel)]="data.password">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Firstname</label>
+							<input type="text" name="firstname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="firstname" required="" [(ngModel)]="data.firstname">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Lastname</label>
+							<input type="text" name="lastname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="lastname" required="" [(ngModel)]="data.lastname">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Phone</label>
+							<input type="tel" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="phone" required="" [(ngModel)]="data.phone">
+						</div>
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">Gender</label>
+							<select class="form-control" name="gender" id="exampleFormControlSelect1" [(ngModel)]="data.gender" required="">
+								<option>Select Gender</option>
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">Role</label>
+							<select class="form-control" name="role" id="exampleFormControlSelect1" [(ngModel)]="data.role" required="">
+								<option selected="">Select Role</option>
+								<option value="admin">Admin</option>
+								<option value="user1">User</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary" [disabled]="!formData.valid">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="box">
+				<div class="box-header">
+					<div *ngIf="show_retrieve_msg && !list_found" class="{{ alert_btn }}"> {{ message }} </div>
+				</div>
+				<div class="box-body">
+					<table class="table table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Firstname</th>
+								<th scope="col">Lastname</th>
+								<th scope="col">Email</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Gender</th>
+								<th scope="col">Role</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let user of user_list">
+								<th scope="row">{{ user.id }}</th>
+								<td>{{ user.firstname }}</td>
+								<td>{{ user.lastname }}</td>
+								<td>{{ user.email }}</td>
+								<td>{{ user.phone }}</td>
+								<td>{{ user.gender }}</td>
+								<td>{{ user.role }}</td>
+								<td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter" (click)="updateForm(user.id)">Edit</button>
+									<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-defaults" (click)="delete(user.id)">Delete</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

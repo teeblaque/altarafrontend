@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+<div class="mt-4 col-8 offset-2">
+	<div class="clearfix"></div>
+	<div *ngFor="let article of articles_list" class="jumbotron">
+		<a [routerLink]="['/', article.slug]" style="text-decoration: none; color: #000000;"><h3>{{ article.title }}</h3></a>
+		<p style="font-style: italic;">{{ article.created_at | date: format: "MMMM d, y" }}</p>
+
+		<p style="margin-bottom: 10px;">{{ article.content }}</p>
+
+		<hr>
+	</div>
+</div>

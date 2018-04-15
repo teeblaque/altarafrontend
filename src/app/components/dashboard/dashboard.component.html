@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+<div class="mt-4 col-12">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="card">
+				<div class="card-header">Add New Article</div>
+				<div class="card-body">
+					<form #formData=ngForm (ngSubmit)="onSave()">
+						<div *ngIf="showmsg" class="{{ alert_btn }}"> {{ message }}</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Title</label>
+							<input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="title" required="" [(ngModel)]="data.title">
+
+							<input type="hidden" name="user_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="title" value="" required="" [(ngModel)]="data.user_id">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Content</label>
+							<textarea rows="4" name="content" cols="50" value="" required="" [(ngModel)]="data.content"></textarea>
+						</div>
+						<!-- <div class="form-group">
+							<label for="exampleInputPassword1">Choose File</label>
+							<input type="file" id="file" name="image" accept="image/*" (change)="handleFileInput($event.target.files)" [(ngModel)]="data.image">
+						</div> -->
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
+			</div>
+			<div class="mt-4"></div>
+			<div class="card">
+				<div class="card-header">Update Article</div>
+				<div class="card-body">
+					<form #formUpData=ngForm (ngSubmit)="onUpdate()">
+						<div *ngIf="showmsgs" class="{{ alert_btns }}"> {{ messages }}</div>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Title</label>
+							<input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="title" required="" [(ngModel)]="info.title">
+
+							<!-- <input type="hidden" name="user_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="title" required="" [(ngModel)]="data.user_id"> -->
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Content</label>
+							<textarea rows="4" name="content" cols="50" required="" [(ngModel)]="info.content"></textarea>
+						</div>
+						<!-- <div class="form-group">
+							<label for="exampleInputPassword1">Choose File</label>
+							<input type="file" id="file" name="image" accept="image/*" (change)="handleFileInput($event.target.files)" [(ngModel)]="data.image">
+						</div> -->
+						<button type="submit" class="btn btn-primary" [disabled]="!formUpData.valid">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="box">
+				<div class="box-header">
+					<div *ngIf="show_retrieve_msg && !list_found" class="{{ alert_btn }}"> {{ message }} </div>
+				</div>
+				<div class="box-body">
+					<table class="table table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Title</th>
+								<th scope="col">Content</th>
+								<!-- <th scope="col">Image</th> -->
+								<th scope="col">Slug</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let publication_list of articles_list">
+								<th scope="row">{{ publication_list.id }}</th>
+								<td>{{ publication_list.title }}</td>
+								<td>{{ publication_list.content }}</td>
+								<!-- <td><img height="40" width="40" src="http://localhost:8000/images/{{publication_list.image}}"></td> -->
+								<td>{{ publication_list.slug }}</td>
+								<td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter" (click)="updateForm(publication_list.id)">Edit</button>
+									<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-defaults" (click)="delete(publication_list.id)">Delete</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

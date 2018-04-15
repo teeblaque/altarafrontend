@@ -1,0 +1,11 @@
+<nav class="navbar navbar-dark bg-primary">
+	<a class="navbar-brand" routerLink="" routerLinkActive="active">Altara Blog</a>
+
+	<div>
+		<a class="navbar-brand" routerLink="/login" routerLinkActive="active" *ngIf="!info.token">Login</a>
+		<a class="navbar-brand" routerLink="/dashboard" routerLinkActive="active" *ngIf="info.role == 'admin' ">Articles</a>
+		<a class="navbar-brand" routerLink="/users" routerLinkActive="active" *ngIf="info.role =='admin'">Users</a>
+		<a class="navbar-brand" (click)="logout()" routerLink="" routerLinkActive="active" *ngIf="info.role =='admin' || info.role == 'user1' ">Logout</a>
+	</div>
+
+</nav>
